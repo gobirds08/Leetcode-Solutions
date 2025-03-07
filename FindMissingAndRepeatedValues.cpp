@@ -1,18 +1,17 @@
 #include <vector>
-#include <map>
-#include <set>
+#include <unordered_set>
 
 class Solution {
     public:
         std::vector<int> findMissingAndRepeatedValues(std::vector<std::vector<int>>& grid) {
             const std::size_t n = grid.size();
-            std::set<int> values;
+            std::unordered_set<int> values;
             int repeated = 0;
             int expec_accumulator = 0;
             int got_accumulator = 0;
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (values.find(grid[i][j]) != values.end()) {
+                    if (values.count(grid[i][j])) {
                         repeated = grid[i][j];
                     } else {
                         values.insert(grid[i][j]);
