@@ -4,16 +4,27 @@
 class Solution {
     public:
         int firstMissingPositive(std::vector<int>& nums) {
-            int smallest_num = 1;
-
-            std::sort(nums.begin(), nums.end());
+            const size_t NUMS_SIZE = nums.size();
+            std::vector<bool> seen(NUMS_SIZE, false);
             
             for (int num: nums) {
-                if (num == smallest_num) {
-                    smallest_num = num + 1;
+                if (num > 0 && num <= NUMS_SIZE) {
+                    seen[num - 1] = true;
                 }
             }
 
-            return smallest_num;
+            for (std::size_t i = 0; i < NUMS_SIZE; i++) {
+                if (!seen[i]) {
+                    return i + 1;
+                }
+            }
+
+            return NUMS_SIZE + 1;
         }
 };
+
+int main() {
+    Solution solution;
+    std::vector<int> nums {1,2,0};
+    solution.firstMissingPositive(nums);
+}
