@@ -4,16 +4,10 @@
 class Solution {
     public:
         int singleNumber(std::vector<int>& nums) {
-            std::sort(nums.begin(), nums.end());
-
-            std::size_t i = 0;
-            
-            while (true) {
-                if (!(i + 1 < nums.size()) || !(nums[i] == nums[i + 1])) {
-                    return nums[i];
-                }
-                i += 2;
+            int xor_acc = 0;
+            for (int num : nums) {
+                xor_acc ^= num;
             }
-            
+            return xor_acc;
         }
 };
